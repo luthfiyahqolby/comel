@@ -1,0 +1,6 @@
+Zayd Free Humanoid Placeholder
+
+File: zayd.glb
+Purpose: Educational placeholder model for Arabic direction-learning demo.
+License: Free to use, modify, and replace for this project.
+Notes: This is a generated placeholder humanoid model, not a trademarked external character.
