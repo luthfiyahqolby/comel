@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Belajar Arah Bahasa Arab 3D - Zayd</title>
+  </head>
+  <body>
+    <div id="app">
+      <button id="toggleSidebarBtn" class="sidebar-toggle" type="button" aria-label="Sembunyikan menu" aria-expanded="true">
+        ☰
+      </button>
+
+      <aside id="sidebar" class="sidebar-column" aria-label="Menu utama aplikasi">
+        <div class="brand-card">
+          <p class="eyebrow">Media Pembelajaran Bahasa Arab</p>
+          <h1>Zayd 3D</h1>
+          <p class="subtitle">Pilih menu, jalankan animasi, atau aktifkan gesture kamera.</p>
+        </div>
+
+        <nav class="menu-panel" aria-label="Tombol menu pembelajaran">
+          <button id="menuMaterialBtn" class="menu-btn active" type="button" data-panel="material" aria-pressed="true">
+            <span>1</span>
+            <strong>Materi</strong>
+          </button>
+          <button id="menuDirectionsBtn" class="menu-btn" type="button" data-panel="directions" aria-pressed="false">
+            <span>2</span>
+            <strong>8 Arah</strong>
+          </button>
+          <button id="menuNavigationBtn" class="menu-btn" type="button" data-panel="navigation" aria-pressed="false">
+            <span>3</span>
+            <strong>Petunjuk Berjalan</strong>
+          </button>
+        </nav>
+
+        <section id="materialPanel" class="panel sidebar-panel active-panel" aria-label="Section 1 materi">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Section 1</p>
+              <h2>Materi</h2>
+            </div>
+            <span class="pill">Teori</span>
+          </div>
+          <div class="material-content">
+            <p>
+              Materi ini mengenalkan kosakata arah dalam bahasa Arab melalui teks, suara, gesture, dan gerakan karakter Zayd di ruang 3D.
+            </p>
+            <div class="info-card">
+              <strong>Kelompok 1: Arah Posisi</strong>
+              <span>أَمَامَ، خَلْفَ، يَمِين، يَسَار، فَوْقَ، تَحْتَ، دَاخِلَ، خَارِجَ</span>
+            </div>
+            <div class="info-card">
+              <strong>Kelompok 2: Petunjuk Berjalan</strong>
+              <span>تَقَدَّمْ، اِرْجِعْ، اِنْعَطِفْ يَمِينًا، اِنْعَطِفْ يَسَارًا، اِصْعَدْ، اِنْزِلْ</span>
+            </div>
+            <ol class="lesson-steps">
+              <li>Pilih menu <b>8 Arah</b> untuk memahami posisi dasar.</li>
+              <li>Pilih menu <b>Petunjuk Berjalan</b> untuk melatih instruksi bergerak.</li>
+              <li>Aktifkan kamera, lalu pilih mode gesture yang sesuai. Model gesture sudah diganti dari swipe menjadi pose statis yang ditahan sebentar.</li>
+            </ol>
+            <div class="note-box">
+              <strong>Model Zayd</strong>
+              <span>File GLB sudah tersedia di <code>public/models/zayd.glb</code>. Model ini dapat diganti kapan saja dengan model humanoid gratis lain.</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="directionsPanel" class="panel sidebar-panel" aria-label="Section 2 delapan arah">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Section 2</p>
+              <h2>8 Arah</h2>
+            </div>
+            <span class="pill">8 Arah</span>
+          </div>
+          <div id="directionList" class="direction-list"></div>
+        </section>
+
+        <section id="navigationPanel" class="panel sidebar-panel" aria-label="Section 3 petunjuk berjalan">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Section 3</p>
+              <h2>Belok Kanan dll.</h2>
+            </div>
+            <span class="pill">6 Perintah</span>
+          </div>
+          <p class="subtitle compact-text">Latih perintah maju, mundur, belok kanan, belok kiri, naik, dan turun.</p>
+          <div id="navigationList" class="direction-list navigation-list"></div>
+        </section>
+
+        <section id="cameraPanel" class="panel gesture-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="eyebrow">Gesture Camera</p>
+              <h2>Kamera</h2>
+            </div>
+            <span class="pill">MediaPipe</span>
+          </div>
+
+          <div class="mode-switch" role="group" aria-label="Pilih mode gesture">
+            <button id="lessonModeBtn" class="mode-btn active" type="button" aria-pressed="true">8 Arah</button>
+            <button id="navigationModeBtn" class="mode-btn" type="button" aria-pressed="false">Berjalan</button>
+          </div>
+
+          <div class="camera-wrap">
+            <video id="gestureVideo" playsinline muted></video>
+            <div id="cameraPlaceholder" class="camera-placeholder">Kamera belum aktif</div>
+          </div>
+          <div class="gesture-actions">
+            <button id="startGestureBtn" class="primary-btn" type="button">Aktifkan Gesture</button>
+            <button id="stopGestureBtn" class="secondary-btn" type="button" disabled>Matikan</button>
+          </div>
+          <p id="gestureStatus" class="status-text">Mode manual aktif. Kamera ikut tersembunyi saat sidebar di-hide. Gesture tidak lagi memakai swipe cepat, tetapi pose statis.</p>
+        </section>
+      </aside>
+
+      <main class="main-column">
+        <section class="scene-panel" aria-label="Animasi 3D Zayd">
+          <div class="scene-header">
+            <div>
+              <p class="eyebrow">Animasi 3D</p>
+              <h2>Zayd bergerak sesuai materi dan gesture</h2>
+            </div>
+            <div class="scene-actions">
+              <button id="fullscreenBtn" class="secondary-btn" type="button">Full Screen 3D</button>
+              <button id="resetBtn" class="secondary-btn" type="button">Reset Zayd</button>
+              <button id="soundBtn" class="secondary-btn active" type="button" aria-pressed="true">Suara: ON</button>
+            </div>
+          </div>
+
+          <div id="canvasShell" class="canvas-shell">
+            <canvas id="renderCanvas"></canvas>
+            <div class="lesson-hud" aria-live="polite">
+              <span id="sourceBadge" class="source-badge">Manual</span>
+              <p id="arabicWord" class="arabic-word">مَرْحَبًا</p>
+              <p id="latinWord" class="latin-word">marḥaban</p>
+              <p id="indoMeaning" class="indo-meaning">Selamat belajar bersama Zayd</p>
+              <p id="lessonHint" class="lesson-hint">Buka menu 8 Arah atau Petunjuk Berjalan untuk memulai.</p>
+            </div>
+            <div id="movementCaption" class="movement-caption" aria-live="polite">Menunggu gesture maju/mundur...</div>
+            <div id="feedbackToast" class="feedback-toast">Zayd bergerak!</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
